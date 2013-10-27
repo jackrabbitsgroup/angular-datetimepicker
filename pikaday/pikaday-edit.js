@@ -3,6 +3,9 @@
  *
  * Copyright © 2013 David Bushell | BSD & MIT license | https://github.com/dbushell/Pikaday
  */
+/**
+`luke-edit` denotes the edits to the original
+*/
 
 (function (root, define, factory)
 {

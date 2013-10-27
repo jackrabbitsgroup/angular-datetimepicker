@@ -19,7 +19,7 @@ config(['$routeProvider', '$locationProvider', '$compileProvider', function($rou
 	// var staticPath ='/';
 	var staticPath;
 	staticPath ='/angular-directives/angular-datetimepicker/';		//local
-	// staticPath ='/angular-datetimepicker/';		//gh-pages
+	staticPath ='/angular-datetimepicker/';		//gh-pages
 	var appPathRoute =staticPath;
 	var pagesPath =staticPath+'pages/';
 	

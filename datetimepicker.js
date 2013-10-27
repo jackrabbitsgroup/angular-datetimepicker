@@ -75,9 +75,9 @@ $scope.onchangeDate =function(date, params) {
 //end: EXAMPLE usage
 */
 
-//'use strict';
+'use strict';
 
-angular.module('jackrabbitsgroup.angular-datetimepicker').directive('jrgDatetimepicker', [function () {
+angular.module('jackrabbitsgroup.angular-datetimepicker', []).directive('jrgDatetimepicker', [function () {
 
 	/**
 	NOTE: non '00' minute timezone offsets apparently do NOT work with moment.js dates... i.e. moment('2013-06-21 10:25:00 -07:30',  'YYYY-MM-DD HH:mm:ssZ') gives GMT-0700 NOT GMT-0730 as it should. So currently this function does NOT support tzToMinutes timezones that have minutes..

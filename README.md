@@ -12,7 +12,7 @@ http://jackrabbitsgroup.github.io/angular-datetimepicker/
 	1. Bower
 		1. add `"angular-datetimepicker": "latest"` to your `bower.json` file then run `bower install` OR run `bower install angular-datetimepicker`
 2. include the files in your app (make sure momentjs is included BEFORE pikaday.js)
-	1. pikaday.js
+	1. pikaday-edit.js
 	2. pikaday.css
 	3. datetimepicker.js
 	4. datetimepicker.less

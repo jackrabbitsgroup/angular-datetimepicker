@@ -52,7 +52,9 @@ module.exports = function(grunt) {
 						angular:    false,
 						$:          false,
 						moment:		false,
-						Pikaday: false
+						Pikaday: false,
+						module: false,
+						forge: false
 					}
 				},
 				beforeconcat:   {
@@ -69,7 +71,7 @@ module.exports = function(grunt) {
 						force:	true
 					},
 					files: {
-						src: ['src/**.js']
+						src: ['**.js']
 					}
 				}
 			},

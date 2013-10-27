@@ -4,22 +4,25 @@
 'use strict';
 
 angular.module('myApp').controller('HomeCtrl', ['$scope', function($scope) {
+	$scope.ngModel ='';
 	$scope.opts ={
-		curSlide: 0
+		pikaday: {
+			//firstDay: 1,		//start on Monday
+			showTime: true		//show timepicker as well
+		}
 	};
 
-	// $scope.myInterval = 5000;
-	var slides = $scope.slides = [];
-	$scope.addSlide = function() {
-		var newWidth = 200 + ((slides.length + (25 * slides.length)) % 150);
-		slides.push({
-			image: 'http://placekitten.com/' + newWidth + '/200',
-			text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-			['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-		});
+	$scope.validateDate =function(date, params, callback) {
+		if(1) {
+			callback(true);		//valid
+		}
+		else {
+			callback(false);		//invalid
+		}
 	};
-	for (var i=0; i<4; i++) {
-		$scope.addSlide();
-	}
+
+	$scope.onchangeDate =function(date, params) {
+		console.log(date);
+	};
 
 }]);

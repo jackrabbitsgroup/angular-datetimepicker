@@ -18,6 +18,8 @@ http://jackrabbitsgroup.github.io/angular-datetimepicker/
 	4. datetimepicker.less
 3. include the module in angular (i.e. in `app.js`) - `jackrabbitsgroup.angular-datetimepicker`
 
+See the `gh-pages` branch, files `bower.json` and `index.html` for a full example.
+
 ## Documentation
 See the `datetimepicker.js` file top comments for usage examples and documentation
 https://github.com/jackrabbitsgroup/angular-datetimepicker/blob/master/datetimepicker.js

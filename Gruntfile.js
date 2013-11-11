@@ -59,7 +59,8 @@ module.exports = function(grunt) {
 				},
 				beforeconcat:   {
 					options: {
-						force:	false
+						force:	false,
+						ignores: ['**.min.js']
 					},
 					files: {
 						src: []
@@ -68,7 +69,8 @@ module.exports = function(grunt) {
 				//quick version - will not fail entire grunt process if there are lint errors
 				beforeconcatQ:   {
 					options: {
-						force:	true
+						force:	true,
+						ignores: ['**.min.js']
 					},
 					files: {
 						src: ['**.js']
@@ -81,11 +83,9 @@ module.exports = function(grunt) {
 					mangle: false
 				},
 				build: {
-					files:  {}
-					/*
-					src:    'src/<%= cfgJson.name %>.js',
-					dest:   'build/<%= cfgJson.name %>.min.js'
-					*/
+					files:  {},
+					src:    'datetimepicker.js',
+					dest:   'datetimepicker.min.js'
 				}
 			},
 			less: {
@@ -113,7 +113,7 @@ module.exports = function(grunt) {
 		*/
 		// Default task(s).
 		// grunt.registerTask('default', ['jshint:beforeconcat', 'less:development', 'concat:devJs', 'concat:devCss']);
-		grunt.registerTask('default', ['jshint:beforeconcatQ', 'less:development']);
+		grunt.registerTask('default', ['jshint:beforeconcatQ', 'less:development', 'uglify:build']);
 	
 	}
 	init({});		//initialize here for defaults (init may be called again later within a task)

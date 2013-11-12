@@ -157,6 +157,7 @@ angular.module('jackrabbitsgroup.angular-datetimepicker', []).directive('jrgDate
 			ngClick: '&?'
 		},
 
+		replace: true,
 		template: function(element, attrs) {
 			var type ='pikaday';
 			if(typeof(forge) !=='undefined' && forge && forge !==undefined) {

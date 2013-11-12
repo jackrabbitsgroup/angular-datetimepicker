@@ -14,7 +14,7 @@ http://jackrabbitsgroup.github.io/angular-datetimepicker/
 2. include the files in your app (make sure momentjs is included BEFORE pikaday.js)
 	1. pikaday-edit.js
 	2. pikaday.css
-	3. datetimepicker.js
+	3. datetimepicker.min.js
 	4. datetimepicker.less
 3. include the module in angular (i.e. in `app.js`) - `jackrabbitsgroup.angular-datetimepicker`
 

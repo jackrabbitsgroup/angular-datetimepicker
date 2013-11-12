@@ -22,7 +22,7 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function($scope) {
 	};
 
 	$scope.onchangeDate =function(date, params) {
-		console.log(date);
+		console.log('date: '+date);
 	};
 
 }]);

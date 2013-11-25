@@ -1,6 +1,6 @@
 {
 	"name": "angular-datetimepicker",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"authors": [
 		"Luke Madera <luke.madera@gmail.com>"
 	],
@@ -25,10 +25,10 @@
 		"tests"
 	],
 	"dependencies": {
-		"angular":"~1.2.0",
-		"angular-animate":"~1.2.0",
-		"angular-sanitize":"~1.2.0",
-		"angular-touch":"~1.2.0"
+		"angular":"~1.2.2",
+		"angular-animate":"~1.2.2",
+		"angular-sanitize":"~1.2.2",
+		"angular-touch":"~1.2.2"
 	},
 	"devDependencies": {
 	}

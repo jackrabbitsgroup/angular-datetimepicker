@@ -39,6 +39,7 @@ scope (attrs that must be defined on the scope (i.e. in the controller) - they c
 	@param {String} [formatDisplay ='YYYY-MM-DD HH:mm:ssZ'] NOT SUPPORTED FOR FORGE/TRIGGERIO NATIVE INPUTS. The string datetime format to display in the input - this will overwrite the pikaday.format value
 	@param {Object} pikaday Opts to be used (will extend defaults) for pikaday - see https://github.com/owenmead/Pikaday for list of options. NOTE: the 'format' field will be overwritten by opts.formatDisplay so set format there instead.
 	@param {String} [id] Will over-write attrs.id value if set (used for the input id)
+	@param {Boolean} [revertOnInvalid =false] true to revert the value/date to the PREVIOUS value if invalid (otherwise will blank out on invalid)
 @param {Function} ngClick Declared on scope so it can be 'passed through' from parent controller; just use as normal ng-click
 
 attrs
@@ -217,7 +218,8 @@ angular.module('jackrabbitsgroup.angular-datetimepicker', []).directive('jrgDate
 			var defaults ={
 				opts: {
 					formatModel: 'YYYY-MM-DD HH:mm:ssZ',
-					formatDisplay: 'YYYY-MM-DD HH:mm:ssZ'
+					formatDisplay: 'YYYY-MM-DD HH:mm:ssZ',
+					revertOnInvalid: false
 				}
 			};
 			scope.opts =angular.extend(defaults.opts, scope.opts);
@@ -244,10 +246,7 @@ angular.module('jackrabbitsgroup.angular-datetimepicker', []).directive('jrgDate
 				
 				//set initial value
 				if(scope.ngModel) {
-					//native inputs need input value to be a javascript date object? So need to convert it.
-					var dateObj =moment(scope.ngModel, scope.opts.formatModel);
-					var inputFormat =dateObj.format(inputFormatString);
-					document.getElementById(attrs.id).value =inputFormat;
+					setModelVal(scope.ngModel);
 				}
 				
 				//doesn't fire
@@ -316,21 +315,7 @@ angular.module('jackrabbitsgroup.angular-datetimepicker', []).directive('jrgDate
 				
 				//set initial value
 				if(scope.ngModel) {
-					var dateFormat ='YYYY-MM-DD';
-					var timeFormat ='HH:mm:ss';
-					var modelFormatted =moment(scope.ngModel, scope.opts.formatModel).format(dateFormat+' '+timeFormat+'Z');
-					var dateOnly =modelFormatted;
-					var timeOnly ='';
-					if(modelFormatted.indexOf(' ') >-1) {
-						dateOnly =modelFormatted.slice(0,modelFormatted.indexOf(' '));
-						timeOnly =modelFormatted.slice((modelFormatted.indexOf(' ')+1), modelFormatted.length);
-					}
-
-					// picker.setDate(dateOnly);		//this will mess up due to timezone offset
-					picker.setMoment(moment(dateOnly, dateFormat));		//this works (isn't affected by timezone offset)
-					// picker.setTime(scope.ngModel);		//doesn't work; nor does picker.setTime([hour], [minute], [second]);
-					picker.setTimeMoment(moment(timeOnly, timeFormat));
-					// document.getElementById(attrs.id).value ='2010-01-01 12:02:00';		//works but doesn't update the picker views
+					setModelVal(scope.ngModel);
 				}				
 			}
 			
@@ -399,16 +384,27 @@ angular.module('jackrabbitsgroup.angular-datetimepicker', []).directive('jrgDate
 			*/
 			function onSelectDate(date) {
 				if(!triggerSkipSelect) {
+					var existingVal =scope.ngModel;		//save for revert later if needed
+					
 					updateModel(date, {});		//update ngModel BEFORE validation so the validate function has the value ALREADY set so can compare to other existing values (passing back the new value by itself without ngModel doesn't allow setting it so the function may not know what instance this value corresponds to). We'll re-update the model again later if invalid.
 					
 					if(scope.validate !==undefined && scope.validate() !==undefined && typeof(scope.validate()) =='function') {		//this is an optional scope attr so don't assume it exists
 						scope.validate()(date, {opts: scope.opts}, function(valid) {
 							if(!valid) {		//may NOT want to blank out values actually (since datepicker closes on selection, this makes it impossible to change the time (to a valid one) after select a date). But as long as they pick the TIME first, they're okay (since time doesn't auto close the picker, only date does).
-								date ='';
-								//update pikaday plugin with blank date
-								// picker.setDate(date);		//not working..
-								document.getElementById(attrs.id).value ='';
-								updateModel(date, {});
+								var blankOut =true;
+								//if have a (valid) existing value/date AND revert option is set, revert date
+								if(scope.opts.revertOnInvalid && existingVal) {
+									blankOut =false;
+									setModelVal(existingVal);
+								}
+								
+								if(blankOut) {		//blank out
+									date ='';
+									//update pikaday plugin with blank date
+									// picker.setDate(date);		//not working..
+									document.getElementById(attrs.id).value ='';
+									updateModel(date, {});
+								}
 							}
 							else {
 								handleValidOnchange(date, {});
